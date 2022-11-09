@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Abonnement</h1>
+<form method="post">{% csrf_token %}
+  <input type="text" name="search_bar" placeholder="Nom d'utilisateur" >
+  <button type="submit">s'abonner</button>
+</form>
+{{ searched_user }}
+<!-- looping through the list of users that I follow -->
+  <ul>
+    {% for following_user in following_users %}
+    <li>
+      <p>{{following_user.followed_user.username}}</p>
+      <form>
+        <button type="submit" formaction="/blog/follow/{{following_user.followed_user.id}}/unfollow">se désabonner</button>
+      </form>
+
+    </li>
+        {% endfor %}
+    </ul>
+<h1>Abonnée</h1>
+  <ul>
+    {% for followed_user in followed_users %}
+    <li>
+      <p>{{followed_user.user.username}}</p>
+    </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

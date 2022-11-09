@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Review</h1>
+<ul>
+    {% for review in reviews %}
+    
+    <li>
+    <p>{{review.headline}}</p>
+    <p>{{review.body}}</p>
+    <p>{{review.time_created}}</p>
+
+    </li>
+    {% endfor %}
+</ul>
+<form action=""><input type="submit" value="nouvelle review" formaction="Review_creator/" formmethod="get"></form>
+{% endblock %}

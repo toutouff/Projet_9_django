@@ -1,0 +1,11 @@
+header {
+  display: flex;
+  justify-content: center;
+  border: black solid thin;
+}
+div.auth_block {
+  display: flex;
+  flex-direction:row-reverse;
+  justify-content: space-evenly;
+}
+

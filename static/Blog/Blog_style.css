@@ -1,0 +1,58 @@
+header {
+    text-align:center;
+    display: flex;
+    flex-direction:row;
+    align-items:center;
+    border: black solid thin;
+}
+h1 {
+    text-align:inherit;
+    flex:2 ;
+}
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex:1;
+}
+a.nav {
+    display:block;
+    text-align:center;
+    flex-wrap: nowrap;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+#outer{
+    margin-left: 20%;
+    margin-right: 20%;
+}
+div.ticket{
+    border: black solid thin;
+    margin: 1%;
+    padding: 1%;
+}
+div.review{
+    margin: 1%;
+    padding: 1%;
+    border:black solid thin;
+}
+button {
+    displau: inline-block;
+    margin: 1%;
+    padding: 1%;
+}
+
+form.button {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+ul{
+    list-style: none;
+}
+
+
+
+
+
+

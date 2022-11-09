@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LitReview</title>
+    <link rel="stylesheet" href="{% static 'Blog/Blog_style.css'%}">
+</head>
+<body>
+<header>
+    <h1>LitReview</h1>
+    <nav>
+    <a class="nav" href="/blog/flux">flux</a>
+    <a class="nav" href="/blog/post">post</a>
+    <a class="nav" href="/blog/follow">abonnement</a>
+    <a  class="nav" href="/auth/logout">se deconnecter</a>
+    </nav>
+</header>
+<div class="content" id="outer">
+  {% block content %}{% endblock %}
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>post</h1>
+<div class="creation_buton">
+  <form method="get" class="button">
+    <button type="submit" formaction="/blog/ticket_creation">demander une critique</button>
+    <button type="submit" formaction="/blog/review_creation">ecrire une critique</button>
+  </form>
+</div>
+<ul>
+  {% for post in posts %}
+  <li>
+    <div class="content">
+      {% if post.closed %}
+        <div class="review">
+          <h4>{{post.review.headline}}</h4>
+          <p>{{postreview.body}}</p>
+          <p>{{post.review.rating}}</p>
+          <div class="ticket">
+          <h5>{{post.ticket.title}}</h5>
+          <p>{{post.ticket.description}}</p>
+          <img src="{{post.ticket.image.url }}" alt="My image">
+        </div>
+          <form method="get" class="button">
+          <button type="submit" value="edit" formaction="/blog/ticket/{{post.ticket.id}}/edit">edit</button>
+          <button type="submit" value="delete" formaction="/blog/ticket/{{post.ticket.id}}/delete">delete</button>
+        </form>
+        </div>
+
+
+      {% else %}
+        <div class="ticket">
+          <h5>{{post.ticket.title}}</h5>
+          <p>{{post.ticket.description}}</p>
+          <img src="{{post.ticket.image.url }}" alt="My image">
+          <form method="get" class="button">
+          <button type="submit" value="edit" formaction="/blog/ticket/{{post.ticket.id}}/edit">edit</button>
+          <button type="submit" value="reply" formaction="/blog/ticket/{{post.ticket.id}}/reply">reply</button>
+          <button type="submit" value="delete" formaction="/blog/ticket/{{post.ticket.id}}/delete">delete</button>
+        </form>
+        </div>
+
+      {% endif %}
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+<!--- <form action=""><input type="submit" value="nouveau ticket" formaction="/Ticket_creator" formmethod="get"></form> -->
+{% endblock %}

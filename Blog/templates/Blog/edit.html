@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div>
+    <p>critique</p>
+    <form action="" method="post">
+        {% csrf_token %}
+        {% if closed %}
+            {{review_form.as_p}}
+            {{ticket_form.as_p}}
+        {% else %}
+            {{ticket_form.as_p}}
+        {% endif %}
+        <input type="submit" value="envoyer">
+    </form>
+</div>
+{% endblock %}

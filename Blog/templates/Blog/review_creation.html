@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+  <p>critique</p>
+  <form action="" method="post">
+    {% if ticket %}
+      {{ticket.name}}
+      {{ticket.image}}
+      {{ticket.description}}
+    {% else %}
+      {{ticket_form.as_p}}
+    {% endif %}
+    {{form.as_p}}
+    {% csrf_token %}
+    {{review_form.as_p}}
+    <input type="submit" value="envoyer">
+  </form>
+</div>
+{% endblock %}
