@@ -20,7 +20,9 @@
           <div class="ticket">
           <h5>{{post.ticket.title}}</h5>
           <p>{{post.ticket.description}}</p>
-          <img src="{{post.ticket.image.url }}" alt="My image">
+            {% if post.ticket.image %}
+              <img src="{{post.ticket.image.url}}" alt="My image">
+              {% endif%}
         </div>
           <form method="get" class="button">
           <button type="submit" value="edit" formaction="/blog/ticket/{{post.ticket.id}}/edit">edit</button>
@@ -33,7 +35,9 @@
         <div class="ticket">
           <h5>{{post.ticket.title}}</h5>
           <p>{{post.ticket.description}}</p>
-          <img src="{{post.ticket.image.url }}" alt="My image">
+          {% if post.ticket.image %}
+              <img src="{{post.ticket.image.url}}" alt="My image">
+              {% endif%}
           <form method="get" class="button">
           <button type="submit" value="edit" formaction="/blog/ticket/{{post.ticket.id}}/edit">edit</button>
           <button type="submit" value="reply" formaction="/blog/ticket/{{post.ticket.id}}/reply">reply</button>

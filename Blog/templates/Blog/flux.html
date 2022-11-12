@@ -29,7 +29,9 @@ for full_post in full_posts:
             <div class="ticket">
               <h4>{{post.ticket.title}}</h4>
               <p>{{post.ticket.description}}</p>
-              <img src="{{post.ticket.image.url }}" alt="My image">
+              {% if post.ticket.image %}
+              <img src="{{post.ticket.image.url}}" alt="My image">
+              {% endif%}
               <p>Ticket posted by {{post.ticket.user.username}}, {{post.ticket.time_created}}</p>
           </div>
         </div>
@@ -38,7 +40,9 @@ for full_post in full_posts:
         <div class="ticket">
           <h4>{{post.ticket.title}}</h4>
           <p>{{post.ticket.description}}</p>
-          <img src="{{post.ticket.image.url }}" alt="My image">
+          {% if post.ticket.image %}
+              <img src="{{post.ticket.image.url }}" alt="My image">
+              {% endif%}
           <p>Ticket posted by {{post.ticket.user.username}}, {{post.ticket.time_created}}</p>
           <form method="get">
           <button type="submit" value="reply" formaction="/blog/ticket/{{post.ticket.id}}/reply">reply</button>
