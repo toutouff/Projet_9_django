@@ -1,54 +1,56 @@
-{% extends 'base.html' %}
-
-{% block content %}
-<h1>post</h1>
-<div class="creation_buton">
-  <form method="get" class="button">
-    <button type="submit" formaction="/blog/ticket_creation">demander une critique</button>
-    <button type="submit" formaction="/blog/review_creation">ecrire une critique</button>
-  </form>
-</div>
-<ul>
-  {% for post in posts %}
-  <li>
-    <div class="content">
-      {% if post.closed %}
-        <div class="review">
-          <h4>{{post.review.headline}}</h4>
-          <p>{{postreview.body}}</p>
-          <p>{{post.review.rating}}</p>
-          <div class="ticket">
-          <h5>{{post.ticket.title}}</h5>
-          <p>{{post.ticket.description}}</p>
-            {% if post.ticket.image %}
-              <img src="{{post.ticket.image.url}}" alt="My image">
-              {% endif%}
-        </div>
-          <form method="get" class="button">
-          <button type="submit" value="edit" formaction="/blog/ticket/{{post.ticket.id}}/edit">edit</button>
-          <button type="submit" value="delete" formaction="/blog/ticket/{{post.ticket.id}}/delete">delete</button>
+{% extends 'base.html'%}
+{% block content%}
+{% load static %}
+<div>
+  <h1>post</h1>
+  <div class="creation_buton">
+    <form method="get">
+      <button type="submit" formaction="/blog/ticket_creation">demander une critique</button>
+      <button type="submit" formaction="/blog/review_creation">ecrire une critique</button>
+    </form>
+  </div>
+  <div id="contentlist">
+    {% for content in contentlist %}
+    <div class="contentblock">
+      {% if content.title %}
+      <div class="ticket">
+        <h5 class="ticket_title">{{content.title}}</h5>
+        <p class="ticketdescription">{{content.description}}</p>
+        {% if content.image %}
+        <img src="{{content.image.url}}" alt="">
+        {% endif %}
+        <form action="" method="get" class="button">
+          {% if not content.is_closed%}
+          <button type="submin" value="reply" formaction="/blog/ticket/{{content.id}}/reply/">reply</button>
+          <button type="submit" value="edit" formaction="/blog/ticket/{{content.id}}/edit">edit</button>
+          <button type="submit" value="delete" formaction="/blog/ticket/{{content.id}}/delete">delete</button>
+          {% endif %}
         </form>
-        </div>
-
-
+      </div>
       {% else %}
+      <div class="review">
+        <h5 class="review_headline">{{content.headline}}</h5>
+        <p class="review_rating">{{content.rating}}</p>
+        <p class="reviewbody">{{content.body}}</p>
+        {% if content.ticket %}
         <div class="ticket">
-          <h5>{{post.ticket.title}}</h5>
-          <p>{{post.ticket.description}}</p>
-          {% if post.ticket.image %}
-              <img src="{{post.ticket.image.url}}" alt="My image">
-              {% endif%}
-          <form method="get" class="button">
-          <button type="submit" value="edit" formaction="/blog/ticket/{{post.ticket.id}}/edit">edit</button>
-          <button type="submit" value="reply" formaction="/blog/ticket/{{post.ticket.id}}/reply">reply</button>
-          <button type="submit" value="delete" formaction="/blog/ticket/{{post.ticket.id}}/delete">delete</button>
-        </form>
+          <h5 class="ticket_title">{{content.ticket.title}}</h5>
+          <p class="ticketdescription">{{content.ticket.description}}</p>
+          {% if content.ticket.image %}
+          <img src="{{content.ticket.image.url}}" alt=""> 
+          {% endif %}
         </div>
+        {% endif %}
 
+        <form action="" method="get" class="button">
+          <button type="submit" value="edit" formaction="/blog/ticket/{{content.ticket.id}}/edit">edit</button>
+          <button type="submit" value="delete" formaction="/blog/ticket/{{content.id}}/delete">delete</button>
+        </form>
+      </div>
       {% endif %}
+
     </div>
-  </li>
-  {% endfor %}
-</ul>
-<!--- <form action=""><input type="submit" value="nouveau ticket" formaction="/Ticket_creator" formmethod="get"></form> -->
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}
