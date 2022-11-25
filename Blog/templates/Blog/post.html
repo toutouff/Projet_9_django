@@ -21,11 +21,13 @@
         {% endif %}
         <form action="" method="get" class="button">
           {% if not content.is_closed%}
-          <button type="submin" value="reply" formaction="/blog/ticket/{{content.id}}/reply/">reply</button>
+          <button type="submit" value="reply" formaction="/blog/ticket/{{content.id}}/reply/">reply</button>
+          {% endif %}
           <button type="submit" value="edit" formaction="/blog/ticket/{{content.id}}/edit">edit</button>
           <button type="submit" value="delete" formaction="/blog/ticket/{{content.id}}/delete">delete</button>
-          {% endif %}
         </form>
+                <p>{{content.id}}</p>
+
       </div>
       {% else %}
       <div class="review">
@@ -44,8 +46,9 @@
 
         <form action="" method="get" class="button">
           <button type="submit" value="edit" formaction="/blog/ticket/{{content.ticket.id}}/edit">edit</button>
-          <button type="submit" value="delete" formaction="/blog/ticket/{{content.id}}/delete">delete</button>
+          <button type="submit" value="delete" formaction="/blog/review/{{content.id}}/delete">delete</button>
         </form>
+        <p>{{content.id}}</p>
       </div>
       {% endif %}
 

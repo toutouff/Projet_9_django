@@ -226,3 +226,18 @@ class Content_page(View):
 
     def post(self, request):
         pass
+
+
+class delete_content(View):
+    ticket_id = None
+    def get(self,request,ticket_id = 0,review_id = 0):
+        if ticket_id:
+            print(f"ticket_id : {ticket_id}")
+            ticket = Ticket.objects.get(id = ticket_id)
+            print(ticket)
+            ticket.delete()
+        elif review_id:
+            print(f"review_id : {review_id}")
+            review = Review.objects.get(id= review_id)
+            print(review)
+        return redirect('post')

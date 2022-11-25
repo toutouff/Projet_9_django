@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render,get_object_or_404
 from .forms import TicketForm, ReviewForm
 from .models import Ticket, Review, UserFollows
 
@@ -218,11 +218,25 @@ def edit(request, ticket_id):
         #   nesexecute pas
 
 
-@login_required
-def delete(request, ticket_id):
-    ticket = Ticket.objects.get(id=ticket_id)
-    review = Review.objects.filter(ticket=ticket).first()
-    if review is not None:
+
+
+
+
+
+
+
+"""def delete_content(ticket_id=None,review_id=None):
+    if ticket_id:
+        ticket = Ticket.objects.get(id=ticket_id)
+        if ticket.is_closed:
+            reviews = Review.objects.filter(ticket= ticket)
+            if len(reviews):
+                review = reviews[0]
+                review.delete()
+        ticket.delete()
+    elif review_id:
+        review = Review.objects.get(id=review_id)
         review.delete()
-    ticket.delete()
+
     return redirect('post')
+"""
