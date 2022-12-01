@@ -1,53 +1,48 @@
-<!-- TODO: edit page
-for full_post in full_posts:
-  if full_post.is_closed:
-    print(ticket + review)
-   else:
-    print(ticket)
--->
-
 {% extends 'base.html'%}
 {% block content%}
 {% load static %}
-<h1>flux</h1>
-<div class="creation_buton">
-  <form method="get">
-    <button type="submit" formaction="/blog/ticket_creation">demander une critique</button>
-    <button type="submit" formaction="/blog/review_creation">ecrire une critique</button>
-  </form>
-</div>
-<ul>
-  {% for post in posts %}
-  <li>
-    <div class="content">
-      {% if post.closed %}
-        <div class="review">
-          <h3>{{post.review.headline}}</h3>
-          <p>{{postreview.body}}</p>
-          <p>{{post.review.rating}} &#9733</p>
-          <p>Rewiew posted by {{post.review.user.username}}, {{post.review.time_created}}</p>
-            <div class="ticket">
-              <h4>{{post.ticket.title}}</h4>
-              <p>{{post.ticket.description}}</p>
-              <img src="{{post.ticket.image.url }}" alt="My image">
-              <p>Ticket posted by {{post.ticket.user.username}}, {{post.ticket.time_created}}</p>
-          </div>
-        </div>
-
+<div>
+  <h1>flux</h1>
+  <div class="creation_buton">
+    <form method="get">
+      <button type="submit" formaction="/blog/ticket_creation">demander une critique</button>
+      <button type="submit" formaction="/blog/review_creation">ecrire une critique</button>
+    </form>
+  </div>
+  <div id="contentlist">
+    {% for content in contentlist %}
+    <div class="contentblock">
+      {% if content.title %}
+      <div class="ticket">
+        <h5 class="ticket_title">{{content.title}}</h5>
+        <p class="ticketdescription">{{content.description}}</p>
+        {% if content.image %}
+        <img src="{{content.image.url}}" alt="">
+        {% endif %}
+        {% if not content.is_closed %}
+        <form action="" method="get" class="button">
+          <button type="submit" value="reply" formaction="/blog/ticket/{{content.id}}/reply/">reply</button>
+          </form>
+        {% endif %}
+      </div>
       {% else %}
+      <div class="review">
+        <h5 class="review_headline">{{content.headline}}</h5>
+        <p class="review_rating">{{content.rating}}</p>
+        <p class="reviewbody">{{content.body}}</p>
+        {% if content.ticket %}
         <div class="ticket">
-          <h4>{{post.ticket.title}}</h4>
-          <p>{{post.ticket.description}}</p>
-          <img src="{{post.ticket.image.url }}" alt="My image">
-          <p>Ticket posted by {{post.ticket.user.username}}, {{post.ticket.time_created}}</p>
-          <form method="get">
-          <button type="submit" value="reply" formaction="/blog/ticket/{{post.ticket.id}}/reply">reply</button>
-        </form>
+          <h5 class="ticket_title">{{content.ticket.title}}</h5>
+          <p class="ticketdescription">{{content.ticket.description}}</p>
+          {% if content.ticket.image %}
+          <img src="{{content.ticket.image.url}}" alt="">
+          {% endif %}
         </div>
-
+        {% endif %}
+      </div>
       {% endif %}
     </div>
-  </li>
-  {% endfor %}
-</ul>
+    {% endfor %}
+  </div>
+</div>
 {% endblock %}

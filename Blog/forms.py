@@ -6,10 +6,10 @@ class TicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = '__all__'
-        exclude = ['time_created','user']
-        """widgets = {
+        exclude = ['time_created','user','is_closed']
+        widgets = {
             'description': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
-        }"""
+        }
 
 
 class ReviewForm(forms.ModelForm):

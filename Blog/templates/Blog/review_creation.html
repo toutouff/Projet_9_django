@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 <div>
-  <p>critique</p>
-  <form action="" method="post">
+  <form action="" method="post" enctype="multipart/form-data">
+    <h4>Ticket</h4>
     {% if ticket %}
       {{ticket.name}}
-      {{ticket.image}}
+    <img src="{{ticket.image.url}}" alt="{{ticket.image}}">
       {{ticket.description}}
     {% else %}
-      {{ticket_form.as_p}}
+        {{ticket_form.as_p}}
     {% endif %}
-    {{form.as_p}}
-    {% csrf_token %}
+    <h4>Review</h4>
     {{review_form.as_p}}
+    {% csrf_token %}
     <input type="submit" value="envoyer">
   </form>
 </div>

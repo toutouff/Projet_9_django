@@ -1,17 +1,55 @@
 {% extends 'base.html' %}
 {% block content %}
-
-<div>
-    <p>critique</p>
+<div id="inner" class="content">
     <form action="" method="post">
-        {% csrf_token %}
-        {% if closed %}
-            {{review_form.as_p}}
-            {{ticket_form.as_p}}
+        <h4>ticket</h4>
+        {% if ticket_form %}
+            <div class="ticketform">{{ ticket_form.as_p}}</div>
+            {% if review_form %}
+                <h4>review</h4>
+                <div class="reviewform">{{ review_form.as_p }}</div>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <button type="submit">envoyer</button>
+                </form>
+            {% else %}
+                {% if review %}
+                    <h4>review</h4>
+                    <div class="reviewcontent">
+                        <h5 class="headline">{{review.headline}}</h5>
+                        <p class="rating">{{review.rating}}</p>
+                        <p class="body">{{review.body}}</p>
+                        <p>created by {{review.user.username}} at
+                            {{review.time_created}}</p>
+                    </div>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <button type="submit">envoyer</button>
+                </form>
+                {% endif %}
+            {% endif %}
         {% else %}
-            {{ticket_form.as_p}}
+            <div class="ticketcontent">
+                <h5 class="title">Titre : {{ticket.title}}</h5>
+                <p class="description">Description :{{ticket.description}}</p>
+                <img src="{{ticket.image.url}}" alt="">
+            </div>
+            {% if review_form %}
+                <h4>review</h4>
+                <div class="reviewform">{{ review_form.as_p }}</div>
+        <form action="" method="post">
+            {% csrf_token %}
+            <button type="submit">envoyer</button>
+        </form>
+            {% else %}
+            <h4>review</h4>
+            <div class="reviewcontent">
+                <h5 class="headline">{{review.headline}}</h5>
+                <p class="rating">{{review.rating}}</p>
+                <p class="body">{{review.body}}</p>
+            </div>
+            {% endif %}
         {% endif %}
-        <input type="submit" value="envoyer">
     </form>
 </div>
 {% endblock %}
