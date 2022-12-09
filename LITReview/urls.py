@@ -41,11 +41,11 @@ urlpatterns = [
     path('blog/review_creation/', cb_views.Content_Create.as_view(review_form = F.ReviewForm,ticket_form = F.TicketForm), name='review_creation'),
 
     #post management
-    path('blog/ticket/<int:ticket_id>/edit',cb_views.Content_Edit.as_view(),name='edit'),
+    path('blog/ticket/<int:ticket_id>/edit',login_required(cb_views.Content_Edit.as_view()),name='edit'),
 
-    path('blog/ticket/<int:ticket_id>/delete',cb_views.delete_content.as_view(),name='delete'),
+    path('blog/ticket/<int:ticket_id>/delete',login_required(cb_views.delete_content.as_view()),name='delete'),
 
-    path('blog/review/<int:review_id>/delete',cb_views.delete_content.as_view(),name='delete'),
+    path('blog/review/<int:review_id>/delete',login_required(cb_views.delete_content.as_view()),name='delete'),
     
     #content page
     path('blog/flux/', login_required(cb_views.Content_page.as_view(feed=True)), name='flux'),

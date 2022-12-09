@@ -22,17 +22,21 @@
                         <p>created by {{review.user.username}} at
                             {{review.time_created}}</p>
                     </div>
-                <form action="" method="post">
+               {% endif %}
+               <form action="" method="post">
                     {% csrf_token %}
                     <button type="submit">envoyer</button>
-                </form>
-                {% endif %}
+            </form>
             {% endif %}
+            
+ 
         {% else %}
             <div class="ticketcontent">
                 <h5 class="title">Titre : {{ticket.title}}</h5>
                 <p class="description">Description :{{ticket.description}}</p>
-                <img src="{{ticket.image.url}}" alt="">
+                {% if ticket.image %}
+                 <img src="{{ticket.image.url}}" alt="">
+                {% endif %}
             </div>
             {% if review_form %}
                 <h4>review</h4>

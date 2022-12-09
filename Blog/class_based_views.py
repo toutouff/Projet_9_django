@@ -7,7 +7,7 @@ from django.views import View
 
 
 class Follow(View):
-    def get(self, request, user_id=None):
+    def get(self, request, user_id=None,message=None):
         user = request.user
         if user_id:
             followed_user = get_object_or_404(User, id=user_id)
@@ -20,24 +20,31 @@ class Follow(View):
             followed_user = UserFollows.objects.filter(followed_user=user)
         return render(request, 'Blog/follow.html',
                       context={'following_users': following_user,
-                               'followed_users': followed_user})
+                               'followed_users': followed_user,'message': message})
 
     def post(self, request):
         user = request.user
         searched_data = request.POST.get('search_bar')
-        searched_user = User.objects.filter(username=searched_data).first()
-        if searched_user is not None and searched_user is not user:
-            user_follows = UserFollows.objects.filter(user=user,
-                                                      followed_user=searched_user)
-            if not len(user_follows):
-                user_follows = UserFollows(user=user,
-                                           followed_user=searched_user)
-                user_follows.save()
-            else:
-                message = 'deja abonnée '
-        else:
+        message = self.follow_by_username(searched_data,user)
+        return self.get(request,message=message)
+
+    @staticmethod
+    def follow_by_username(searched_data,user):
+        if not User.objects.filter(username=searched_data).exists():
             message = "l'utilisateur n'existe pas "
-        return redirect('follow')
+            return message
+        searched_user = User.objects.filter(username=searched_data).first()
+        if searched_user.username == user.username:
+            message = "Vous ne pouvez pas vous abonner à vous même "
+            return message
+        if UserFollows.objects.filter(user=user,followed_user=searched_user).exists():
+            message = 'deja abonnée '
+            return message
+        user_follows = UserFollows(user=user,followed_user=searched_user)
+        user_follows.save()
+        message = f"abonnement a {searched_user.username} réussi "
+        return message
+
 
 
 class Content_Create(View):
@@ -240,4 +247,7 @@ class delete_content(View):
             print(f"review_id : {review_id}")
             review = Review.objects.get(id= review_id)
             print(review)
+            review.ticket.is_closed = False
+            review.ticket.save(update_fields=['is_closed'])
+            review.delete()
         return redirect('post')

@@ -5,6 +5,9 @@
   <input type="text" name="search_bar" placeholder="Nom d'utilisateur" >
   <button type="submit">s'abonner</button>
 </form>
+{% if message %}
+<p>{{message}}</p>
+{% endif %}
 {{ searched_user }}
 <!-- looping through the list of users that I follow -->
   <ul>
